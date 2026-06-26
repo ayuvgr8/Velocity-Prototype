@@ -29,13 +29,17 @@ export async function POST(req: Request) {
   const role = body.role ?? "customer engagement agent";
   const instruction = body.instruction ?? "Write a helpful WhatsApp message.";
 
-  const system = `You are the ${role} for an Indian e-commerce brand on the Velocity platform. Job: ${instruction}. Write ONE WhatsApp message. Constraints: India-appropriate (₹, UPI/COD), warm but concise (≤320 chars), one clear CTA, ≤2 emoji. Use ONLY the provided context; invent nothing.`;
+  const system = `You are the ${role} for an Indian e-commerce brand on the Velocity platform. Job: ${instruction}.
+
+Output ONLY the body of ONE WhatsApp message — the exact text that would be sent to the customer. No preamble, no explanation, no character counts, no markdown, no surrounding quotes, no notes about what you did. Just the message.
+
+Constraints: India-appropriate (₹, UPI/COD), warm but concise (≤320 chars), one clear CTA, ≤2 emoji. Ground the message in the provided context; do not fabricate specific discount amounts, promo codes, or product names that aren't given — if no offer is specified, write a compelling message without inventing one.`;
 
   const user = `Customer context (task-scoped):\n${JSON.stringify(
     { context: body.context, freshness: body.freshness },
     null,
     2
-  )}\n\nWrite the message.`;
+  )}\n\nWrite the message now. Remember: output the message text only.`;
 
   try {
     const r = await fetch("https://api.anthropic.com/v1/messages", {
