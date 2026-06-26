@@ -6,15 +6,15 @@
 
 ## Slide 1 · The thesis
 
-A **CDP** answers one question: *"Who is my customer?"*
+**I didn't build one agent. I built the layer that makes *all* the agents possible.**
 
-But an agent about to act doesn't need a 360° profile. It needs **the few facts that change its decision, right now.**
+A **CDP** answers one question: *"Who is my customer?"* But an agent about to act doesn't need a 360° profile. It needs **the few facts that change its decision, right now.**
 
 > We're not building a CDP. We're building the layer that answers:
 > **"What does THIS agent need to know about THIS customer to do THIS job, at the moment it acts?"**
-> — and stays cheap to extend as we add agents and brands.
+> — and because it's one platform across many brands, the data compounds into a moat no single brand can build.
 
-Everything below follows from taking that sentence literally.
+Every agent on the roadmap fails the same way: **it acts on partial context.** Fix the context layer once, and every agent — today's and the ones not built yet — gets better at the same time. Everything below follows from taking that one sentence literally.
 
 ---
 
@@ -249,4 +249,11 @@ Prioritized by **value × data-readiness × reversibility-of-risk.** Build where
 > Every future agent just declares a contract over the same data.
 > And because it's one platform across many brands, the data compounds into a moat no single brand can build.
 
-**The prototype makes that clickable. This deck is how it scales.**
+**Why this is the right answer, not just an answer:**
+
+- It fixes the **shared bottleneck** every agent has — not one feature in isolation.
+- It's **AI-first and proven live** — English → segment, minimal context → real message.
+- It serves **products not built yet** — new agent = new contract, no re-architecture.
+- The **restraint is deliberate** — no DB, no auth, no fake integrations; knowing what *not* to build is the same judgment the roadmap question tests.
+
+**The prototype makes it clickable. This deck is how it scales.**
