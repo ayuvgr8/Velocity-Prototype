@@ -19,13 +19,15 @@ export function AgentActsPanel({
   scope: "scoped" | "dump";
 }) {
   const agent = AGENTS.find((a) => a.id === agentId)!;
+  const bundle = getContext(customer, agent);
+  const fieldCount =
+    scope === "scoped" ? bundle.included.length : bundle.included.length + bundle.excluded.length;
   const [message, setMessage] = useState<string>(customer.mock_action);
   const [source, setSource] = useState<Mode>("mock");
   const [loading, setLoading] = useState(false);
 
   async function run() {
     setLoading(true);
-    const bundle = getContext(customer, agent);
     const { message: m, source: s } = await generateAction(
       bundle,
       agent,
@@ -45,6 +47,8 @@ export function AgentActsPanel({
   }, [customer.customer_id, agentId]);
 
   const showMoatBadge = customer.customer_id === "cust_004" && agent.badge;
+  const exploringInMock =
+    mode === "mock" && source === "mock" && agent.id !== customer.expected_agent;
 
   return (
     <section className="rounded-xl border border-slate-200 bg-white p-4">
@@ -63,7 +67,12 @@ export function AgentActsPanel({
         </button>
       </div>
       <p className="text-[11px] text-muted mb-3">
-        {agent.role} · acting on <strong>{scope === "scoped" ? "task-scoped" : "full-dump"}</strong> context
+        {agent.role} · acting on{" "}
+        <strong>{scope === "scoped" ? "task-scoped" : "full-dump"}</strong>{" "}
+        context · built from{" "}
+        <strong className={scope === "scoped" ? "text-emerald-600" : "text-slate-500"}>
+          {fieldCount} field{fieldCount === 1 ? "" : "s"}
+        </strong>
       </p>
 
       {showMoatBadge && (
@@ -88,6 +97,14 @@ export function AgentActsPanel({
           </div>
         </div>
       </div>
+
+      {exploringInMock && (
+        <p className="mt-2 text-[10px] text-amber-600 leading-snug">
+          Mock copy is the canned message for this customer’s recommended agent.
+          Switch to <strong>Live</strong> to generate a real {agent.name} message
+          from this task’s contract.
+        </p>
+      )}
 
       <div className="mt-2 flex items-center justify-between text-[11px]">
         <span className="text-muted">

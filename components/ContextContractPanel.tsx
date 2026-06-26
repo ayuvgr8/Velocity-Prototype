@@ -26,6 +26,7 @@ export function ContextContractPanel({
 }) {
   const agent = AGENTS.find((a) => a.id === agentId)!;
   const bundle: ContextBundle = getContext(customer, agent);
+  const isRecommended = agent.id === customer.expected_agent;
 
   const scopedTokens = estimateTokens(scopedPayload(bundle));
   const dumpTokens = estimateTokens(dumpPayload(customer));
@@ -59,6 +60,19 @@ export function ContextContractPanel({
             </button>
           );
         })}
+      </div>
+
+      {/* recommended vs exploring — reinforces the extensibility story */}
+      <div className="mb-2">
+        {isRecommended ? (
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
+            ★ recommended agent for this scenario
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200 px-2 py-0.5 text-[10px] font-medium text-amber-700">
+            exploring — same customer, different job → watch the contract change
+          </span>
+        )}
       </div>
 
       {/* trigger + logic */}

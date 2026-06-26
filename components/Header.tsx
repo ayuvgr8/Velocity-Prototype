@@ -14,9 +14,12 @@ export function Header({
       <div className="mx-auto max-w-[1400px] px-5 py-4 flex items-start justify-between gap-6">
         <div>
           <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-md bg-accent" />
+            <div className="h-6 w-6 rounded-md bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-sm" />
             <span className="font-semibold tracking-tight text-ink">
               Velocity · Customer Context Layer
+            </span>
+            <span className="ml-1 inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-500">
+              multi-brand · 1 platform
             </span>
           </div>
           <p className="mt-1.5 text-sm text-muted max-w-2xl leading-snug">
