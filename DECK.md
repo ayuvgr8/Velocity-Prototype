@@ -60,6 +60,20 @@ This is why the layer serves *products we haven't built yet*: a new agent is a n
 
 ## Slide 5 · Architecture (one picture)
 
+![Velocity Customer Context Layer architecture](assets/architecture.png)
+
+**How to read it (left → right):**
+
+- **Sources (per brand × N brands).** Storefront, payments, courier, WhatsApp, web pixel, marketing — scattered, each with its own schema. This is the status-quo mess.
+- **① Ingest & AI schema mapping.** An LLM maps each source's raw fields onto *canonical events*, so a new brand onboards in hours instead of an ETL sprint. **AI replaces hand-written per-brand pipelines.**
+- **② Identity resolution (the keystone).** Fragments collapse into one human, with a **confidence on every link** — deterministic (phone/email) → probabilistic (name+address+device, AI-scored) → behavioral (session→buyer) → **cross-brand graph join** (the moat). Nothing downstream works until this is trustworthy.
+- **③ Unified store, split on purpose.** *3a Event store* = immutable, append-only facts (orders, chats, shipments) — the replayable source of truth. *3b Trait store* = derived signals (RFM, LTV, RTO-risk, churn, sentiment) **recomputed from events, never hand-set.** Splitting them is what makes a wrong trait fixable (replay & recompute) and what keeps contracts stable (agents read traits, so recomputation never breaks them).
+- **④ Context API — `getContext(customer, task)`.** Takes an agent's contract, resolves the fields, ranks by relevance + recency, and returns a **tight task-scoped bundle (~70–90% smaller than a full dump).** *This is the layer the prototype implements.*
+- **Agents = one Context Contract each.** Today's 6, plus *product #N (not built yet)* — which ships by declaring a new contract over existing traits. **No re-architecture; platform cost ≈ O(1) in number of products.**
+- **Closed loop (bottom).** Every action + outcome is written back as a new event → traits sharpen → the next decision is better. The layer **self-tunes**, and every new brand improves the network priors for every other brand.
+
+<details><summary>Text-only fallback (same diagram)</summary>
+
 ```
    SOURCES (per brand, many)              PLATFORM (one, multi-tenant)
  ┌───────────────────────────┐
@@ -88,6 +102,8 @@ This is why the layer serves *products we haven't built yet*: a new agent is a n
                                       ▼
               Agents: WISMO · COD→Prepaid · RTO Shield · Cart · Winback · Upsell · …(n)
 ```
+
+</details>
 
 The prototype is layer **4** (and the visible parts of 2). Layers 1–3 are the deck's job to describe.
 

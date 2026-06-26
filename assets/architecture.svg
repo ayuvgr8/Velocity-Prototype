@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#d946ef"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrowV" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8b5cf6"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="48" y="56" font-size="30" font-weight="700" fill="#0f172a">Velocity · Customer Context Layer — Architecture</text>
+  <text x="48" y="86" font-size="17" fill="#64748b">The agents’ needs are the forcing function: each agent declares a Context Contract; the layer is built to serve exactly those needs — across many brands, one platform.</text>
+
+  <!-- ============ COLUMN 1: SOURCES ============ -->
+  <text x="48" y="138" font-size="14" font-weight="700" fill="#94a3b8" letter-spacing="1">SOURCES · per brand × N brands</text>
+  <g filter="url(#shadow)">
+    <rect x="48" y="152" width="300" height="312" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  </g>
+  <g font-size="15" fill="#0f172a">
+    <rect x="68" y="172" width="260" height="40" rx="8" fill="#f1f5f9"/><text x="84" y="197">🛒  Storefront / Shopify</text>
+    <rect x="68" y="220" width="260" height="40" rx="8" fill="#f1f5f9"/><text x="84" y="245">💳  Payments (Razorpay…)</text>
+    <rect x="68" y="268" width="260" height="40" rx="8" fill="#f1f5f9"/><text x="84" y="293">🚚  Courier (Shiprocket…)</text>
+    <rect x="68" y="316" width="260" height="40" rx="8" fill="#f1f5f9"/><text x="84" y="341">💬  WhatsApp / chat</text>
+    <rect x="68" y="364" width="260" height="40" rx="8" fill="#f1f5f9"/><text x="84" y="389">🌐  Web sessions / pixel</text>
+    <rect x="68" y="412" width="260" height="40" rx="8" fill="#f1f5f9"/><text x="84" y="437">📣  Marketing / campaigns</text>
+  </g>
+  <text x="48" y="486" font-size="13" fill="#94a3b8">Scattered, per-brand, different schemas — the status quo.</text>
+
+  <!-- arrow to ingest -->
+  <line x1="348" y1="308" x2="412" y2="308" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="356" y="298" font-size="12" fill="#64748b">ingest</text>
+
+  <!-- ============ COLUMN 2: PLATFORM PIPELINE ============ -->
+  <text x="416" y="138" font-size="14" font-weight="700" fill="#94a3b8" letter-spacing="1">PLATFORM · one, multi-tenant</text>
+
+  <!-- 1 Ingest + AI schema map -->
+  <g filter="url(#shadow)">
+    <rect x="416" y="152" width="430" height="92" rx="14" fill="#ffffff" stroke="#c4b5fd"/>
+  </g>
+  <circle cx="446" cy="182" r="14" fill="url(#brand)"/><text x="446" y="187" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+  <text x="472" y="180" font-size="18" font-weight="700" fill="#0f172a">Ingest &amp; AI schema mapping</text>
+  <text x="472" y="204" font-size="14" fill="#475569">LLM maps any source’s raw fields → canonical events.</text>
+  <text x="472" y="225" font-size="13" fill="#7c3aed" font-weight="600">AI replaces hand-written per-brand ETL → onboard in hours.</text>
+
+  <line x1="631" y1="244" x2="631" y2="270" stroke="#8b5cf6" stroke-width="2.5" marker-end="url(#arrowV)"/>
+
+  <!-- 2 Identity resolution -->
+  <g filter="url(#shadow)">
+    <rect x="416" y="272" width="430" height="116" rx="14" fill="#ffffff" stroke="#c4b5fd"/>
+  </g>
+  <circle cx="446" cy="302" r="14" fill="url(#brand)"/><text x="446" y="307" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+  <text x="472" y="300" font-size="18" font-weight="700" fill="#0f172a">Identity resolution  (the keystone)</text>
+  <text x="472" y="324" font-size="13.5" fill="#475569">Fragments → one human, with a confidence on every link:</text>
+  <text x="472" y="345" font-size="13" fill="#475569">• <tspan font-weight="600" fill="#0f172a">deterministic</tspan> phone/email · • <tspan font-weight="600" fill="#0f172a">probabilistic</tspan> name+addr+device (AI)</text>
+  <text x="472" y="365" font-size="13" fill="#475569">• <tspan font-weight="600" fill="#0f172a">behavioral</tspan> session→buyer · • <tspan font-weight="600" fill="#0f172a">cross-brand</tspan> graph join ⭐</text>
+
+  <line x1="631" y1="388" x2="631" y2="414" stroke="#8b5cf6" stroke-width="2.5" marker-end="url(#arrowV)"/>
+
+  <!-- 3 Stores: event + trait -->
+  <text x="416" y="436" font-size="14" font-weight="700" fill="#94a3b8" letter-spacing="1">3 · UNIFIED STORE  (split on purpose)</text>
+  <g filter="url(#shadow)">
+    <rect x="416" y="448" width="208" height="150" rx="14" fill="#ffffff" stroke="#bae6fd"/>
+  </g>
+  <text x="436" y="478" font-size="16" font-weight="700" fill="#0369a1">3a · Event store</text>
+  <text x="436" y="500" font-size="12.5" fill="#475569">Immutable, append-only</text>
+  <text x="436" y="519" font-size="12.5" fill="#475569">log: orders, chats,</text>
+  <text x="436" y="538" font-size="12.5" fill="#475569">sessions, shipments.</text>
+  <text x="436" y="563" font-size="12.5" fill="#0f172a" font-weight="600">Source of truth · replayable</text>
+
+  <g filter="url(#shadow)">
+    <rect x="638" y="448" width="208" height="150" rx="14" fill="#ffffff" stroke="#bbf7d0"/>
+  </g>
+  <text x="658" y="478" font-size="16" font-weight="700" fill="#15803d">3b · Trait store</text>
+  <text x="658" y="500" font-size="12.5" fill="#475569">Derived, recomputed</text>
+  <text x="658" y="519" font-size="12.5" fill="#475569">from events: RFM, LTV,</text>
+  <text x="658" y="538" font-size="12.5" fill="#475569">RTO-risk, churn, sentiment.</text>
+  <text x="658" y="563" font-size="12.5" fill="#0f172a" font-weight="600">AI-extracted · never hand-set</text>
+
+  <!-- recompute loop arrow -->
+  <path d="M 624 523 C 600 523, 600 523, 600 523" stroke="none"/>
+  <line x1="638" y1="560" x2="624" y2="560" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="486" y="616" font-size="12" fill="#94a3b8">A wrong trait? Replay events &amp; recompute — no mystery state. Agents read traits, so recomputation never breaks a contract.</text>
+
+  <line x1="631" y1="636" x2="631" y2="662" stroke="#8b5cf6" stroke-width="2.5" marker-end="url(#arrowV)"/>
+
+  <!-- 4 Context API -->
+  <g filter="url(#shadow)">
+    <rect x="416" y="664" width="430" height="128" rx="14" fill="#faf5ff" stroke="#8b5cf6" stroke-width="2"/>
+  </g>
+  <circle cx="446" cy="694" r="14" fill="url(#brand)"/><text x="446" y="699" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+  <text x="472" y="692" font-size="18" font-weight="700" fill="#0f172a">Context API  ·  getContext(customer, task)</text>
+  <text x="472" y="716" font-size="13.5" fill="#475569">contract → resolve fields → rank by relevance + recency → bundle</text>
+  <rect x="472" y="728" width="354" height="48" rx="8" fill="#ffffff" stroke="#e9d5ff"/>
+  <text x="486" y="748" font-size="12.5" fill="#6d28d9" font-weight="700">◀ THIS IS THE PROTOTYPE ▶</text>
+  <text x="486" y="767" font-size="12" fill="#64748b">tight, task-scoped context — ~70–90% smaller than a full profile dump</text>
+
+  <!-- arrow to agents -->
+  <line x1="846" y1="728" x2="912" y2="728" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- ============ COLUMN 3: AGENTS ============ -->
+  <text x="916" y="138" font-size="14" font-weight="700" fill="#94a3b8" letter-spacing="1">AGENTS · each = one Context Contract</text>
+  <g font-size="14.5" fill="#0f172a">
+    <g filter="url(#shadow)"><rect x="916" y="152" width="300" height="58" rx="12" fill="#ffffff" stroke="#e2e8f0"/></g>
+    <text x="936" y="180" font-weight="700">COD → Prepaid</text>
+    <text x="936" y="199" font-size="12" fill="#64748b">cod_ratio · rto_risk · aov · ltv</text>
+
+    <g filter="url(#shadow)"><rect x="916" y="220" width="300" height="58" rx="12" fill="#ffffff" stroke="#fecaca"/></g>
+    <text x="936" y="248" font-weight="700">RTO Shield  ⭐ cross-brand moat</text>
+    <text x="936" y="267" font-size="12" fill="#64748b">rto_risk · cross_brand_return_signal</text>
+
+    <g filter="url(#shadow)"><rect x="916" y="288" width="300" height="58" rx="12" fill="#ffffff" stroke="#e2e8f0"/></g>
+    <text x="936" y="316" font-weight="700">Cart Recovery</text>
+    <text x="936" y="335" font-size="12" fill="#64748b">cart · sentiment · pref_payment</text>
+
+    <g filter="url(#shadow)"><rect x="916" y="356" width="300" height="58" rx="12" fill="#ffffff" stroke="#e2e8f0"/></g>
+    <text x="936" y="384" font-weight="700">Winback</text>
+    <text x="936" y="403" font-size="12" fill="#64748b">days_since · churn · fav_category</text>
+
+    <g filter="url(#shadow)"><rect x="916" y="424" width="300" height="58" rx="12" fill="#ffffff" stroke="#e2e8f0"/></g>
+    <text x="936" y="452" font-weight="700">Proactive WIMO</text>
+    <text x="936" y="471" font-size="12" fill="#64748b">shipment · anxiety · is_first_order</text>
+
+    <g filter="url(#shadow)"><rect x="916" y="492" width="300" height="58" rx="12" fill="#ffffff" stroke="#e2e8f0"/></g>
+    <text x="936" y="520" font-weight="700">Upsell + Review</text>
+    <text x="936" y="539" font-size="12" fill="#64748b">last_order · sentiment · complements</text>
+
+    <g filter="url(#shadow)"><rect x="916" y="560" width="300" height="58" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-dasharray="5 4"/></g>
+    <text x="936" y="588" font-weight="700" fill="#7c3aed">Product #N (not built yet)</text>
+    <text x="936" y="607" font-size="12" fill="#64748b">just declare a new contract →</text>
+  </g>
+
+  <!-- extensibility callout -->
+  <g filter="url(#shadow)">
+    <rect x="916" y="664" width="300" height="128" rx="14" fill="#ecfdf5" stroke="#86efac"/>
+  </g>
+  <text x="936" y="692" font-size="15" font-weight="700" fill="#15803d">Why it scales</text>
+  <text x="936" y="715" font-size="12.5" fill="#166534">New agent = new contract over</text>
+  <text x="936" y="733" font-size="12.5" fill="#166534">existing traits. No re-architecture.</text>
+  <text x="936" y="756" font-size="12.5" fill="#166534">Platform cost ≈ O(1) in #products.</text>
+  <text x="936" y="775" font-size="12.5" fill="#166534" font-weight="700">The roadmap speeds up as it grows.</text>
+
+  <!-- write-back loop -->
+  <text x="916" y="838" font-size="14" font-weight="700" fill="#94a3b8" letter-spacing="1">CLOSED LOOP · the layer learns</text>
+  <g filter="url(#shadow)">
+    <rect x="48" y="852" width="1168" height="96" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+  </g>
+  <text x="72" y="888" font-size="15" fill="#0f172a">Every action &amp; outcome (converted? returned? replied?) is written back as a new <tspan font-weight="700">event</tspan> →</text>
+  <text x="72" y="912" font-size="15" fill="#0f172a">traits like <tspan font-weight="700" fill="#7c3aed">past_nudge_response</tspan> and <tspan font-weight="700" fill="#7c3aed">rto_risk</tspan> sharpen → the <tspan font-weight="700">next</tspan> decision is better. Self-tuning, no analyst in the loop.</text>
+  <text x="72" y="935" font-size="13" fill="#64748b">Cross-brand: every new brand improves the network RTO/churn priors for every other brand — the data compounds into a moat no single brand can build.</text>
+
+  <!-- big feedback arrow agents -> event store -->
+  <path d="M 1066 852 L 1066 840 Q 1066 632 740 612 L 624 540" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrowV)" opacity="0.7"/>
+</svg>

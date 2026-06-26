@@ -58,6 +58,12 @@ If the key is missing or a call fails, the UI **falls back to mock automatically
 
 ## Architecture
 
+![Velocity Customer Context Layer architecture](assets/architecture.png)
+
+*Sources → ① AI schema mapping → ② identity resolution → ③ event + trait store → ④ Context API → agents (one contract each) → closed learning loop. The prototype implements layer ④ and the visible parts of ②. Full walkthrough in [`DECK.md`](DECK.md).*
+
+**Request flow:**
+
 ```
 ask in plain English ─► /api/segment (or mock) ─► SegmentFilter ─► applySegment() ─► highlight personas   (#2)
 pick(customer) ───────► identity fragments ─────► unified profile + traits                                 (#1)
