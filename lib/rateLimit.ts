@@ -101,3 +101,16 @@ export async function consume(): Promise<Usage & { ok: boolean }> {
   mem.used += 1;
   return { ok: true, ...shape(mem.used) };
 }
+
+// Reset today's budget back to 0 (used by the token-protected reset route).
+export async function resetUsage(): Promise<Usage> {
+  if (redis) {
+    try {
+      await redis.del(key());
+    } catch {
+      /* fall through to memory */
+    }
+  }
+  mem = { date: utcDate(), used: 0 };
+  return shape(0);
+}
