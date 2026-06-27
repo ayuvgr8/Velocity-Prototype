@@ -1,4 +1,27 @@
 // Small presentation helpers shared across UI panels.
+import type { Customer } from "./types";
+
+export function initials(name: string): string {
+  return name
+    .split(" ")
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
+
+// Curated trait chips for the unified-profile card (design panel ①).
+export function traitChips(c: Customer): { k: string; v: string }[] {
+  const t = c.traits;
+  return [
+    { k: "ORDERS", v: String(t.order_count) },
+    { k: "AOV", v: rupees(t.aov) },
+    { k: "LTV", v: rupees(t.ltv) },
+    { k: "RTO RISK", v: t.rto_risk_score.toFixed(2) },
+    { k: "CHURN", v: t.churn_score.toFixed(2) },
+    { k: "PAY", v: t.preferred_payment },
+  ];
+}
 
 const FIELD_LABELS: Record<string, string> = {
   order_count: "Orders",

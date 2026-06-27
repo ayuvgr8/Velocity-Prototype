@@ -5,7 +5,7 @@ import type { Customer } from "@/lib/types";
 import { AGENTS } from "@/lib/data/agents";
 import { getContext } from "@/lib/engine/getContext";
 import { generateAction, type Mode } from "@/lib/engine/client";
-import { PanelTitle } from "./IdentityPanel";
+import { PanelHeader } from "./PanelHeader";
 
 export function AgentActsPanel({
   customer,
@@ -19,109 +19,133 @@ export function AgentActsPanel({
   scope: "scoped" | "dump";
 }) {
   const agent = AGENTS.find((a) => a.id === agentId)!;
-  const bundle = getContext(customer, agent);
-  const fieldCount =
-    scope === "scoped" ? bundle.included.length : bundle.included.length + bundle.excluded.length;
-  const [message, setMessage] = useState<string>(customer.mock_action);
+  const [message, setMessage] = useState<string | null>(null);
   const [source, setSource] = useState<Mode>("mock");
   const [loading, setLoading] = useState(false);
 
+  // reset the draft when the target changes — the user presses Generate to act
+  useEffect(() => {
+    setMessage(null);
+  }, [customer.customer_id, agentId]);
+
   async function run() {
     setLoading(true);
-    const { message: m, source: s } = await generateAction(
-      bundle,
-      agent,
-      mode,
-      scope
-    );
+    setMessage(null);
+    const bundle = getContext(customer, agent);
+    const { message: m, source: s } = await generateAction(bundle, agent, mode, scope);
     setMessage(m);
     setSource(s);
     setLoading(false);
   }
 
-  // Reset to the persona's mock action whenever the target changes; the user
-  // explicitly hits Generate to call the model.
-  useEffect(() => {
-    setMessage(customer.mock_action);
-    setSource("mock");
-  }, [customer.customer_id, agentId]);
-
-  const showMoatBadge = customer.customer_id === "cust_004" && agent.badge;
-  const exploringInMock =
-    mode === "mock" && source === "mock" && agent.id !== customer.expected_agent;
+  const genLabel = loading
+    ? "Generating…"
+    : mode === "live"
+    ? "Generate live message"
+    : "Generate message (mock)";
+  const scopeWord = scope === "scoped" ? "task-scoped" : "full-dump";
 
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-4">
-      <div className="flex items-center justify-between">
-        <PanelTitle index="3" title="Agent Acts" tint="#16a34a" />
-        <button
-          onClick={run}
-          disabled={loading}
-          className="rounded-lg bg-accent px-3.5 py-1.5 text-xs font-medium text-white hover:bg-accent/90 disabled:opacity-50 transition"
-        >
-          {loading
-            ? "Generating…"
-            : mode === "live"
-            ? "Generate live →"
-            : "Generate (mock) →"}
-        </button>
-      </div>
-      <p className="text-[11px] text-muted mb-3">
-        {agent.role} · acting on{" "}
-        <strong>{scope === "scoped" ? "task-scoped" : "full-dump"}</strong>{" "}
-        context · built from{" "}
-        <strong className={scope === "scoped" ? "text-emerald-600" : "text-slate-500"}>
-          {fieldCount} field{fieldCount === 1 ? "" : "s"}
-        </strong>
-      </p>
+    <section className="overflow-hidden rounded-2xl border border-border bg-panel">
+      <PanelHeader n={3} label="AGENT ACTS" title="Real AI on minimal context" />
 
-      {showMoatBadge && (
-        <div className="mb-3 inline-flex items-center gap-1.5 rounded-lg bg-red-50 border border-red-200 px-2.5 py-1.5 text-[11px] font-medium text-red-700">
-          <span>🛡️</span> {agent.badge}
-        </div>
-      )}
+      <div className="px-4 py-3.5">
+        <div className="overflow-hidden rounded-[15px] border border-border shadow-[0_14px_34px_-22px_rgba(20,18,12,0.5)]">
+          {/* whatsapp header */}
+          <div className="flex items-center gap-2.5 bg-green px-3.5 py-[11px]">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-panel font-display text-[15px] font-bold text-green">
+              {customer.display_name[0]}
+            </div>
+            <div className="flex-1">
+              <div className="font-sans text-[13.5px] font-semibold text-panel">
+                {customer.display_name}
+              </div>
+              <div className="text-[10.5px] text-panel/80">
+                via Velocity · {agent.name}
+              </div>
+            </div>
+            <span className="rounded-full bg-panel/20 px-[9px] py-[3px] font-mono text-[9px] tracking-[0.06em] text-panel">
+              WHATSAPP
+            </span>
+          </div>
 
-      {/* phone bubble */}
-      <div className="rounded-2xl bg-[#e5ddd5] p-4">
-        <div className="flex flex-col gap-1.5 max-w-[80%]">
-          <div className="relative rounded-xl rounded-tl-sm bg-white px-3.5 py-2.5 shadow-sm">
-            <div className="text-[10px] font-semibold text-emerald-600 mb-0.5">
-              {customer.display_name.split(" ")[0]}’s brand · WhatsApp
-            </div>
-            <p className="text-[13px] text-slate-800 leading-relaxed whitespace-pre-wrap">
-              {message}
-            </p>
-            <div className="mt-1 text-right text-[9px] text-slate-400">
-              {source === "live" ? "✓ Claude" : "mock"} · now
-            </div>
+          {/* chat area */}
+          <div
+            className="flex min-h-[208px] flex-col gap-[9px] px-3.5 py-[15px]"
+            style={{
+              background:
+                "#E7E0D2 radial-gradient(rgba(20,18,12,.035) 1px,transparent 1px)",
+              backgroundSize: "16px 16px",
+            }}
+          >
+            {customer.messages.map((m, i) => (
+              <div
+                key={i}
+                className="max-w-[82%] self-start rounded-[3px_12px_12px_12px] bg-white px-[11px] py-2 shadow-[0_1px_1px_rgba(20,18,12,0.08)]"
+              >
+                <div className="text-[13px] leading-[1.4] text-ink">{m.text}</div>
+                <div className="mt-0.5 text-right text-[9.5px] text-[#9c958a]">
+                  {m.ts}
+                </div>
+              </div>
+            ))}
+
+            {loading && (
+              <div className="flex items-center gap-[5px] self-end rounded-[12px_3px_12px_12px] bg-[#DCF8C6] px-3.5 py-[11px]">
+                <span className="h-[7px] w-[7px] animate-[vBlink_1s_ease_infinite] rounded-full bg-[#7fae5f]" />
+                <span className="h-[7px] w-[7px] animate-[vBlink_1s_ease_0.2s_infinite] rounded-full bg-[#7fae5f]" />
+                <span className="h-[7px] w-[7px] animate-[vBlink_1s_ease_0.4s_infinite] rounded-full bg-[#7fae5f]" />
+              </div>
+            )}
+
+            {message && !loading && (
+              <div className="v-fade-up max-w-[88%] self-end rounded-[12px_3px_12px_12px] bg-[#DCF8C6] px-3 py-[9px] shadow-[0_1px_1px_rgba(20,18,12,0.08)]">
+                <div className="whitespace-pre-wrap text-[13.5px] leading-[1.46] text-ink">
+                  {message}
+                </div>
+                <div className="mt-[3px] flex items-center justify-end gap-1">
+                  <span className="text-[9.5px] text-[#7c8a6b]">now</span>
+                  <span className="tracking-[-2px] text-[11px] text-[#34B7F1]">
+                    ✓✓
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {!message && !loading && (
+              <div className="m-auto max-w-[30ch] text-center text-[12.5px] leading-[1.4] text-[#8c8579]">
+                Press <strong className="text-muted">{genLabel}</strong> — the
+                agent acts on the {scopeWord} bundle only.
+              </div>
+            )}
           </div>
         </div>
-      </div>
 
-      {exploringInMock && (
-        <p className="mt-2 text-[10px] text-amber-600 leading-snug">
-          Mock copy is the canned message for this customer’s recommended agent.
-          Switch to <strong>Live</strong> to generate a real {agent.name} message
-          from this task’s contract.
-        </p>
-      )}
-
-      <div className="mt-2 flex items-center justify-between text-[11px]">
-        <span className="text-muted">
-          {message.length} chars
-          {source === "live" && (
-            <span className="ml-2 inline-flex items-center rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
-              generated live by Claude
-            </span>
-          )}
-        </span>
         <button
           onClick={run}
           disabled={loading}
-          className="text-accent hover:underline disabled:opacity-50"
+          className="mt-[13px] flex w-full items-center justify-center gap-[9px] rounded-[12px] border-none bg-purple py-[13px] font-display text-[14.5px] font-semibold text-panel shadow-[0_10px_24px_-12px_rgba(67,38,214,0.6)] transition hover:brightness-110 disabled:opacity-60"
         >
-          ↻ regenerate
+          {loading && (
+            <span className="inline-block h-3.5 w-3.5 animate-[vSpin_0.6s_linear_infinite] rounded-full border-2 border-panel/40 border-t-panel" />
+          )}
+          <span>{genLabel}</span>
         </button>
+
+        {message && !loading && (
+          <div className="mt-[9px] flex items-center justify-between">
+            <span
+              className={`font-mono text-[10px] tracking-[0.04em] ${
+                source === "live" ? "text-green" : "text-muted-2"
+              }`}
+            >
+              {source === "live" ? "✓ generated live by Claude" : "mock draft"}
+            </span>
+            <span className="font-mono text-[10px] text-muted-2">
+              {message.length} / 320 chars
+            </span>
+          </div>
+        )}
       </div>
     </section>
   );

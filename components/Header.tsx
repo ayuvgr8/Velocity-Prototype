@@ -2,71 +2,83 @@
 
 import type { Mode } from "@/lib/engine/client";
 
+export type View = "intro" | "workspace" | "architecture";
+
 export function Header({
+  view,
+  setView,
   mode,
   setMode,
+  onStartDemo,
 }: {
+  view: View;
+  setView: (v: View) => void;
   mode: Mode;
   setMode: (m: Mode) => void;
+  onStartDemo: () => void;
 }) {
   return (
-    <header className="border-b border-slate-200 bg-white">
-      <div className="mx-auto max-w-[1400px] px-5 py-4 flex items-start justify-between gap-6">
-        <div>
-          <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-md bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-sm" />
-            <span className="font-semibold tracking-tight text-ink">
-              Velocity · Customer Context Layer
-            </span>
-            <span className="ml-1 inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-500">
-              multi-brand · 1 platform
-            </span>
-          </div>
-          <p className="mt-1.5 text-sm text-muted max-w-2xl leading-snug">
-            A CDP answers <em>“who is my customer.”</em> This layer answers{" "}
-            <span className="text-ink font-medium">
-              “what does THIS agent need to know about THIS customer to do THIS
-              job, right now”
-            </span>{" "}
-            — across many brands.
-          </p>
+    <header className="sticky top-0 z-40 flex items-center justify-between px-6 py-3.5 bg-panel/[0.86] backdrop-blur-[10px] border-b border-border">
+      <button
+        onClick={() => setView("intro")}
+        className="flex items-center gap-3 cursor-pointer"
+      >
+        <span className="w-[9px] h-[9px] rounded-full bg-purple-2 shadow-[0_0_0_4px_rgba(91,61,245,0.14)]" />
+        <span className="font-display font-bold text-[16px] tracking-[-0.01em] text-ink">
+          Velocity
+        </span>
+        <span className="font-mono text-[10.5px] tracking-[0.14em] text-muted-2 border-l border-border pl-3.5">
+          CONTEXT LAYER
+        </span>
+      </button>
+
+      <div className="flex items-center gap-2">
+        {/* Workspace / Architecture tabs */}
+        <div className="flex bg-chip border border-border rounded-[9px] p-[3px] gap-[2px]">
+          {(["workspace", "architecture"] as const).map((v) => (
+            <button
+              key={v}
+              onClick={() => setView(v)}
+              className={`font-sans font-medium text-[13px] rounded-md px-3.5 py-[7px] transition ${
+                view === v
+                  ? "bg-ink text-panel"
+                  : "text-ink hover:bg-panel/60"
+              }`}
+            >
+              {v === "workspace" ? "Workspace" : "Architecture"}
+            </button>
+          ))}
         </div>
 
-        <ModeToggle mode={mode} setMode={setMode} />
-      </div>
-    </header>
-  );
-}
+        {/* Guided demo */}
+        <button
+          onClick={onStartDemo}
+          className="flex items-center gap-[7px] font-sans font-medium text-[13px] text-ink bg-panel border border-border-2 rounded-[9px] px-3.5 py-2 cursor-pointer hover:bg-cream transition"
+        >
+          <span className="w-[7px] h-[7px] rounded-full bg-orange" />
+          Guided demo
+        </button>
 
-function ModeToggle({
-  mode,
-  setMode,
-}: {
-  mode: Mode;
-  setMode: (m: Mode) => void;
-}) {
-  return (
-    <div className="shrink-0">
-      <div className="inline-flex rounded-lg border border-slate-200 p-0.5 bg-slate-50">
-        {(["mock", "live"] as Mode[]).map((m) => (
+        {/* LIVE AI / MOCK */}
+        <div className="flex items-center bg-chip border border-border rounded-[9px] p-[3px] gap-[2px]">
           <button
-            key={m}
-            onClick={() => setMode(m)}
-            className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${
-              mode === m
-                ? "bg-white text-ink shadow-sm border border-slate-200"
-                : "text-muted hover:text-ink"
+            onClick={() => setMode("live")}
+            className={`font-mono text-[11px] tracking-[0.06em] rounded-md px-[11px] py-[7px] transition ${
+              mode === "live" ? "bg-purple text-panel" : "text-muted"
             }`}
           >
-            {m === "mock" ? "Mock (deterministic)" : "Live (Claude)"}
+            ● LIVE AI
           </button>
-        ))}
+          <button
+            onClick={() => setMode("mock")}
+            className={`font-mono text-[11px] tracking-[0.06em] rounded-md px-[11px] py-[7px] transition ${
+              mode === "mock" ? "bg-ink text-panel" : "text-muted"
+            }`}
+          >
+            MOCK
+          </button>
+        </div>
       </div>
-      <p className="mt-1 text-[11px] text-muted text-right">
-        {mode === "live"
-          ? "Calls Claude — needs ANTHROPIC_API_KEY"
-          : "No API key needed"}
-      </p>
-    </div>
+    </header>
   );
 }

@@ -2,6 +2,7 @@
 
 import { CUSTOMERS } from "@/lib/data/customers";
 import { getAgent } from "@/lib/data/agents";
+import { initials } from "@/lib/format";
 
 export function CustomerRail({
   selectedId,
@@ -15,57 +16,64 @@ export function CustomerRail({
   const hasSegment = matchedIds.length > 0;
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
-      <div className="px-4 py-3 border-b border-slate-200">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-muted">
-          Customers
-        </h2>
-        <p className="text-[11px] text-muted mt-0.5">
-          6 engineered personas · pick one
-        </p>
+    <div>
+      <div className="mb-[11px] ml-0.5 mt-0.5 font-mono text-[10.5px] tracking-[0.14em] text-muted-2">
+        CUSTOMERS · 6 PERSONAS
       </div>
-
-      <ul className="divide-y divide-slate-100">
+      <div className="flex flex-col gap-[9px]">
         {CUSTOMERS.map((c) => {
           const isSelected = selectedId === c.customer_id;
           const isMatch = matchedIds.includes(c.customer_id);
           const dimmed = hasSegment && !isMatch;
           const agent = getAgent(c.expected_agent);
-          const isMoat = c.customer_id === "cust_004";
+          const isMoat = !!c.traits.cross_brand_return_signal;
 
           return (
-            <li key={c.customer_id}>
-              <button
-                onClick={() => onSelect(c.customer_id)}
-                className={`w-full text-left px-4 py-3 transition relative ${
-                  isSelected ? "bg-accent-soft/70" : "hover:bg-slate-50"
-                } ${dimmed ? "opacity-35" : ""}`}
+            <button
+              key={c.customer_id}
+              onClick={() => onSelect(c.customer_id)}
+              style={{ opacity: dimmed ? 0.4 : 1 }}
+              className={`relative flex items-start gap-3 rounded-[13px] border px-3.5 py-3 text-left transition ${
+                isSelected
+                  ? "border-purple bg-purple-soft/50"
+                  : "border-border bg-panel hover:border-border-2"
+              }`}
+            >
+              <div
+                className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[10px] font-display text-[13px] font-semibold ${
+                  isSelected ? "bg-purple text-panel" : "bg-chip text-ink"
+                }`}
               >
-                {isSelected && (
-                  <span className="absolute left-0 top-0 bottom-0 w-1 bg-accent" />
-                )}
-                {isMatch && (
-                  <span className="absolute right-3 top-3 inline-flex h-2 w-2 rounded-full bg-accent ring-4 ring-accent/20" />
-                )}
-                <div className="flex items-center gap-1.5">
-                  <span className="font-medium text-ink text-sm">
+                {initials(c.display_name)}
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-[7px]">
+                  <span className="font-display text-[14.5px] font-semibold text-ink">
                     {c.display_name}
                   </span>
-                  {isMoat && <span title="cross-brand moat">⭐</span>}
+                  {isMoat && (
+                    <span className="rounded-[5px] bg-purple px-1.5 py-0.5 font-mono text-[9px] tracking-[0.1em] text-panel">
+                      ★ MOAT
+                    </span>
+                  )}
                 </div>
-                <div className="text-[11px] text-muted mt-0.5 leading-snug">
-                  {c.scenario_tag}
+                <div className="mt-0.5 text-[12px] text-muted">
+                  {c.traits.segment}
                 </div>
-                <div className="mt-1.5">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">
-                    ★ {agent?.name}
-                  </span>
+                <div className="mt-[5px] font-mono text-[10px] tracking-[0.04em] text-muted-2">
+                  rec · {agent?.name}
                 </div>
-              </button>
-            </li>
+              </div>
+              {isMatch && (
+                <span className="absolute right-3 top-[11px] flex items-center gap-1 font-mono text-[9px] tracking-[0.06em] text-orange-deep">
+                  <span className="h-[6px] w-[6px] animate-[vPulse_1.4s_ease_infinite] rounded-full bg-orange" />
+                  MATCH
+                </span>
+              )}
+            </button>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 }
