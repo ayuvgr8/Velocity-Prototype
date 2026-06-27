@@ -133,8 +133,10 @@ Open or punctuate sections with these — they make *them* arrive at your thesis
 | File | What it is |
 |------|-----------|
 | Live URL / `app/` + `lib/` + `components/` | The interactive prototype |
-| `DECK.md` | The 16-slide thinking (architecture, AI-first, roadmap) |
-| `exports/Velocity-Context-Layer-Deck.pdf` | The deck as a shareable PDF |
-| `exports/Velocity-Context-Layer-Deck.pptx` | The deck, editable in PowerPoint / Google Slides |
+| `DECK.md` | The full 16-slide thinking (architecture, AI-first, roadmap) |
+| `DECK_SHORT.md` | Tight 10-slide version for a time-boxed presentation |
+| `exports/…Deck.pdf` / `.pptx` | Full deck — PDF (share) + PPTX (**with per-slide speaker notes**) |
+| `exports/…Deck-SHORT.pdf` / `.pptx` | Short deck — PDF + PPTX (**with speaker notes**) |
+| `WHY_THIS_PRODUCT.md` | Plain-English brief: what it does + why it answers the assignment |
 | `assets/architecture.png` / `.svg` | The architecture diagram |
 | `DEMO_GUIDE.md` | This file |
