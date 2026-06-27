@@ -1,6 +1,7 @@
 "use client";
 
 import type { Mode } from "@/lib/engine/client";
+import { LiveUsageBadge } from "./LiveUsageBadge";
 
 export type View = "intro" | "workspace" | "architecture";
 
@@ -58,6 +59,8 @@ export function Header({
           <span className="w-[7px] h-[7px] rounded-full bg-orange" />
           Guided demo
         </button>
+
+        <LiveUsageBadge />
 
         {/* LIVE AI / MOCK */}
         <div className="flex items-center bg-chip border border-border rounded-[9px] p-[3px] gap-[2px]">

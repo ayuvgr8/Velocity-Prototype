@@ -2,10 +2,12 @@ import type { AgentTask, ContextBundle, SegmentFilter } from "../types";
 import { scopedPayload, dumpPayload } from "./getContext";
 import { parseSegmentMock } from "./segment";
 import { getCustomer } from "../data/customers";
+import { notifyUsageChange } from "./usage";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Client-side calls into the two API routes, each with a mock fallback.
 // Default to MOCK for a deterministic demo; "live" proves it's real (PRD §11).
+// `limited` = the daily live-AI budget is exhausted (HTTP 429) → fell back to mock.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type Mode = "mock" | "live";
@@ -16,7 +18,7 @@ export async function generateAction(
   task: AgentTask,
   mode: Mode,
   scope: "scoped" | "dump"
-): Promise<{ message: string; source: Mode }> {
+): Promise<{ message: string; source: Mode; limited?: boolean }> {
   const customer = getCustomer(bundle.customer_id)!;
 
   if (mode === "mock") {
@@ -41,8 +43,13 @@ export async function generateAction(
       }),
     });
     const data = await res.json();
+    notifyUsageChange();
     if (!res.ok || !data.message) {
-      return { message: customer.mock_action, source: "mock" };
+      return {
+        message: customer.mock_action,
+        source: "mock",
+        limited: res.status === 429,
+      };
     }
     return { message: data.message, source: "live" };
   } catch {
@@ -54,7 +61,7 @@ export async function generateAction(
 export async function parseSegment(
   query: string,
   mode: Mode
-): Promise<{ filter: SegmentFilter; source: Mode }> {
+): Promise<{ filter: SegmentFilter; source: Mode; limited?: boolean }> {
   if (mode === "mock") {
     return { filter: parseSegmentMock(query), source: "mock" };
   }
@@ -65,8 +72,13 @@ export async function parseSegment(
       body: JSON.stringify({ query }),
     });
     const data = await res.json();
+    notifyUsageChange();
     if (!res.ok || !data.conditions) {
-      return { filter: parseSegmentMock(query), source: "mock" };
+      return {
+        filter: parseSegmentMock(query),
+        source: "mock",
+        limited: res.status === 429,
+      };
     }
     return {
       filter: { conditions: data.conditions, human_readable: data.human_readable },

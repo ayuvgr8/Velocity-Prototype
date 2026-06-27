@@ -1,9 +1,13 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // /api/generate — drafts ONE WhatsApp message from task-scoped context (PRD §11).
 // Uses ANTHROPIC_API_KEY. Returns 503 if missing so the client falls back to mock.
+// Rate-limited to a shared daily live-AI budget (see lib/rateLimit.ts).
 // ─────────────────────────────────────────────────────────────────────────────
 
-const MODEL = "claude-sonnet-4-6";
+import { consume } from "@/lib/rateLimit";
+
+// Most cost-efficient current Claude model; override with ANTHROPIC_MODEL.
+const MODEL = process.env.ANTHROPIC_MODEL || "claude-haiku-4-5-20251001";
 
 export async function POST(req: Request) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -24,6 +28,15 @@ export async function POST(req: Request) {
     body = await req.json();
   } catch {
     return Response.json({ error: "bad_json", message: null }, { status: 400 });
+  }
+
+  // enforce the daily live-AI cap before spending the key
+  const budget = await consume();
+  if (!budget.ok) {
+    return Response.json(
+      { error: "rate_limited", message: null, usage: budget },
+      { status: 429 }
+    );
   }
 
   const role = body.role ?? "customer engagement agent";
@@ -72,7 +85,7 @@ Constraints: India-appropriate (₹, UPI/COD), warm but concise (≤320 chars), 
       .join("")
       .trim();
 
-    return Response.json({ message: out });
+    return Response.json({ message: out, usage: budget });
   } catch (e) {
     return Response.json(
       { error: "fetch_failed", detail: String(e), message: null },

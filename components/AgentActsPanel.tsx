@@ -21,20 +21,23 @@ export function AgentActsPanel({
   const agent = AGENTS.find((a) => a.id === agentId)!;
   const [message, setMessage] = useState<string | null>(null);
   const [source, setSource] = useState<Mode>("mock");
+  const [limited, setLimited] = useState(false);
   const [loading, setLoading] = useState(false);
 
   // reset the draft when the target changes — the user presses Generate to act
   useEffect(() => {
     setMessage(null);
+    setLimited(false);
   }, [customer.customer_id, agentId]);
 
   async function run() {
     setLoading(true);
     setMessage(null);
     const bundle = getContext(customer, agent);
-    const { message: m, source: s } = await generateAction(bundle, agent, mode, scope);
+    const { message: m, source: s, limited: lim } = await generateAction(bundle, agent, mode, scope);
     setMessage(m);
     setSource(s);
+    setLimited(!!lim);
     setLoading(false);
   }
 
@@ -131,6 +134,13 @@ export function AgentActsPanel({
           )}
           <span>{genLabel}</span>
         </button>
+
+        {limited && (
+          <div className="mt-[9px] rounded-[9px] border border-orange/30 bg-[#F6E9DD] px-3 py-2 font-mono text-[10px] leading-[1.5] tracking-[0.02em] text-orange-deep">
+            ⚠ Daily live-AI budget reached — showing the mock draft. Resets 00:00
+            UTC. (Mock mode stays unlimited.)
+          </div>
+        )}
 
         {message && !loading && (
           <div className="mt-[9px] flex items-center justify-between">
