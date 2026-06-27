@@ -2,6 +2,7 @@
 
 import type { Mode } from "@/lib/engine/client";
 import { LiveUsageBadge } from "./LiveUsageBadge";
+import { AdminReset } from "./AdminReset";
 
 export type View = "intro" | "workspace" | "architecture";
 
@@ -61,6 +62,7 @@ export function Header({
         </button>
 
         <LiveUsageBadge />
+        <AdminReset />
 
         {/* LIVE AI / MOCK */}
         <div className="flex items-center bg-chip border border-border rounded-[9px] p-[3px] gap-[2px]">
