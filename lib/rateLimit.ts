@@ -1,19 +1,29 @@
+import { Redis } from "@upstash/redis";
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Daily live-AI rate limit — protects the owner's Anthropic key.
 // Counts EVERY live Anthropic call (both /api/generate and /api/segment) against
 // one shared daily budget (default 15/day, UTC).
 //
-// Storage: uses a persistent KV (Vercel KV / Upstash Redis REST) when its env
-// vars are present — that gives a TRUE global daily cap on serverless. Otherwise
-// falls back to an in-memory counter (works for local + a warm instance; may
-// reset on cold starts). Set DAILY_LIVE_LIMIT to change the cap.
+// Storage: persistent global counter via Upstash Redis (Vercel KV) when its env
+// vars are present — a TRUE global daily cap on serverless. Otherwise falls back
+// to an in-memory counter (works for local + a warm instance; may reset on cold
+// starts). Set DAILY_LIVE_LIMIT to change the cap.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const LIMIT = Number(process.env.DAILY_LIVE_LIMIT ?? 15);
 
-const KV_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-const KV_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-const useKV = !!(KV_URL && KV_TOKEN);
+// Support both the Upstash-integration and legacy Vercel-KV variable names.
+function makeRedis(): Redis | null {
+  const url =
+    process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const token =
+    process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+  if (url && token) return new Redis({ url, token });
+  return null;
+}
+const redis = makeRedis();
+const useKV = !!redis;
 
 export type Usage = {
   limit: number;
@@ -46,25 +56,10 @@ function memRollover() {
   if (mem.date !== d) mem = { date: d, used: 0 };
 }
 
-async function kv(cmd: (string | number)[]): Promise<unknown> {
-  const r = await fetch(KV_URL!, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${KV_TOKEN}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(cmd),
-    // never cache a counter
-    cache: "no-store",
-  });
-  if (!r.ok) throw new Error(`kv ${r.status}`);
-  return (await r.json()).result;
-}
-
 export async function getUsage(): Promise<Usage> {
-  if (useKV) {
+  if (redis) {
     try {
-      const v = await kv(["GET", key()]);
+      const v = await redis.get<number>(key());
       return shape(Number(v ?? 0));
     } catch {
       /* fall through to memory */
@@ -77,20 +72,20 @@ export async function getUsage(): Promise<Usage> {
 // Try to consume one unit of budget. Returns ok:false (without consuming) when
 // the daily cap is already reached.
 export async function consume(): Promise<Usage & { ok: boolean }> {
-  if (useKV) {
+  if (redis) {
     try {
-      const v = Number(await kv(["INCR", key()]));
+      const v = await redis.incr(key());
       if (v === 1) {
-        // expire 2 days out so the key self-cleans
+        // expire 2 days out so the daily key self-cleans
         try {
-          await kv(["EXPIRE", key(), 172800]);
+          await redis.expire(key(), 172800);
         } catch {
           /* best effort */
         }
       }
       if (v > LIMIT) {
         try {
-          await kv(["DECR", key()]);
+          await redis.decr(key());
         } catch {
           /* best effort */
         }
