@@ -57,16 +57,17 @@
   <line class="faint" x1="220" y1="587" x2="288" y2="394"/>
   <line class="spine" x1="460" y1="390" x2="516" y2="390" marker-end="url(#ah)"/>
   <line class="spine" x1="730" y1="390" x2="776" y2="390" marker-end="url(#ah)"/>
-  <line class="faint" x1="980" y1="390" x2="1036" y2="281"/>
-  <line class="faint" x1="980" y1="390" x2="1036" y2="363"/>
-  <line class="faint" x1="980" y1="390" x2="1036" y2="445"/>
-  <line class="faint" x1="980" y1="390" x2="1036" y2="527"/>
-  <line class="faint" x1="980" y1="390" x2="1036" y2="609"/>
-  <line x1="980" y1="390" x2="1036" y2="199" stroke="#C7BEF0" stroke-width="1.6" fill="none"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="261"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="329"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="398"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="466"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="535"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="603"/>
+  <line x1="980" y1="390" x2="1036" y2="192" stroke="#C7BEF0" stroke-width="1.6" fill="none"/>
 
   <rect class="glow g2" x="290" y="235" width="170" height="310" rx="14" fill="#3F9E6E" filter="url(#blur8)"/>
   <rect class="glow v" x="780" y="215" width="200" height="350" rx="14" fill="#6C5CE7" filter="url(#blur8)"/>
-  <rect class="glow v" x="1040" y="164" width="160" height="70" rx="12" fill="#6C5CE7" filter="url(#blur8)"/>
+  <rect class="glow v" x="1040" y="164" width="160" height="56" rx="12" fill="#6C5CE7" filter="url(#blur8)"/>
 
   <g>
     <rect class="box" x="50" y="164" width="170" height="78" rx="10"/>
@@ -147,23 +148,28 @@
   <text class="anno" x="1008" y="300" text-anchor="middle" style="fill:#8E84C8">context bundle ↘</text>
 
   <g>
-    <rect class="box" x="1040" y="164" width="160" height="70" rx="12" stroke="#6C5CE7" stroke-width="2"/>
-    <text class="bt" x="1120" y="194" text-anchor="middle">COD → Prepaid</text>
-    <text class="bs" x="1120" y="213" text-anchor="middle" style="fill:#6C5CE7">← receiving context</text>
+    <rect class="box" x="1040" y="164" width="160" height="56" rx="11" stroke="#6C5CE7" stroke-width="2"/>
+    <text class="bt" x="1120" y="186" text-anchor="middle">COD → Prepaid</text>
+    <text class="bs" x="1120" y="204" text-anchor="middle" style="fill:#6C5CE7">← receiving context</text>
   </g>
-  <g><rect class="box" x="1040" y="246" width="160" height="70" rx="12"/><text class="bt" x="1120" y="286" text-anchor="middle">Winback</text></g>
-  <g><rect class="box" x="1040" y="328" width="160" height="70" rx="12"/><text class="bt" x="1120" y="368" text-anchor="middle">Cart Recovery</text></g>
-  <g><rect class="box" x="1040" y="410" width="160" height="70" rx="12"/><text class="bt" x="1120" y="450" text-anchor="middle">RTO Shield</text></g>
-  <g><rect class="box" x="1040" y="492" width="160" height="70" rx="12"/><text class="bt" x="1120" y="532" text-anchor="middle">WIMO</text></g>
-  <g><rect class="box" x="1040" y="574" width="160" height="70" rx="12"/><text class="bt" x="1120" y="614" text-anchor="middle">Upsell + Review</text></g>
+  <g><rect class="box" x="1040" y="233" width="160" height="56" rx="11"/><text class="bt" x="1120" y="266" text-anchor="middle">Winback</text></g>
+  <g><rect class="box" x="1040" y="301" width="160" height="56" rx="11"/><text class="bt" x="1120" y="334" text-anchor="middle">Cart Recovery</text></g>
+  <g><rect class="box" x="1040" y="370" width="160" height="56" rx="11"/><text class="bt" x="1120" y="403" text-anchor="middle">RTO Shield</text></g>
+  <g><rect class="box" x="1040" y="438" width="160" height="56" rx="11"/><text class="bt" x="1120" y="471" text-anchor="middle">WIMO</text></g>
+  <g><rect class="box" x="1040" y="507" width="160" height="56" rx="11"/><text class="bt" x="1120" y="540" text-anchor="middle">Upsell + Review</text></g>
+  <g>
+    <rect class="box" x="1040" y="575" width="160" height="56" rx="11" stroke="#B79BE8" stroke-dasharray="5 4"/>
+    <text class="bt" x="1120" y="600" text-anchor="middle">Returns &amp; Refunds</text>
+    <text class="bs" x="1120" y="617" text-anchor="middle" style="fill:#8E84C8">new — just a contract</text>
+  </g>
 
   <!-- animated data packets flowing through the pipeline -->
   <circle class="pkt" r="3.6" fill="#6C5CE7"><animateMotion dur="3s" begin="0s" repeatCount="indefinite" path="M232,390 L980,390"/></circle>
   <circle class="pkt" r="3.6" fill="#6C5CE7"><animateMotion dur="3s" begin="1s" repeatCount="indefinite" path="M232,390 L980,390"/></circle>
   <circle class="pkt" r="4" fill="#6C5CE7"><animateMotion dur="3s" begin="2s" repeatCount="indefinite" path="M232,390 L980,390"/></circle>
   <!-- context bundle out to the active agent -->
-  <circle class="pkt" r="4.2" fill="#6C5CE7"><animateMotion dur="1.5s" begin="0.4s" repeatCount="indefinite" path="M980,390 L1036,199"/></circle>
-  <circle class="pkt" r="3.4" fill="#6C5CE7"><animateMotion dur="1.7s" begin="1.3s" repeatCount="indefinite" path="M980,390 L1036,281"/></circle>
+  <circle class="pkt" r="4.2" fill="#6C5CE7"><animateMotion dur="1.5s" begin="0.4s" repeatCount="indefinite" path="M980,390 L1036,192"/></circle>
+  <circle class="pkt" r="3.4" fill="#6C5CE7"><animateMotion dur="1.7s" begin="1.3s" repeatCount="indefinite" path="M980,390 L1036,603"/></circle>
 
   <g class="action">
     <path d="M1206,190 L1218,190 L1210,202 Z" fill="#FFFFFF"/>
