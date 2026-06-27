@@ -17,6 +17,7 @@ export const TRAIT_FIELDS: { field: string; type: string; note?: string }[] = [
   },
   { field: "days_since_last_order", type: "number" },
   { field: "is_first_order", type: "boolean" },
+  { field: "refund_status", type: '"requested"|"approved"|"processing"|"completed"|undefined', note: 'open return; use op "exists" or =="processing"' },
   { field: "cart", type: "object | undefined", note: 'use op "exists"' },
   {
     field: "order.status",

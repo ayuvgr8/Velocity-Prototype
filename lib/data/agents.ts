@@ -111,6 +111,27 @@ export const AGENTS: AgentTask[] = [
       "Thank a happy repeat customer who just received their order, ask for a quick review, and offer a complementary product.",
     persona_id: "cust_006",
   },
+  {
+    id: "returns_refunds",
+    name: "Returns & Refunds",
+    role: "returns, refunds and complaints agent",
+    trigger: "Return raised / refund pending / complaint",
+    contract: [
+      "orders",
+      "return_reason",
+      "refund_status",
+      "sentiment",
+      "rto_count",
+      "ltv",
+      "messages",
+    ],
+    decision_logic:
+      "Open return + negative sentiment + good LTV → de-escalate, give a clear refund ETA, offer a save",
+    action_label: "Resolve return",
+    instruction:
+      "Reassure a customer with an open return or pending refund. Acknowledge the issue, give a clear refund status/ETA, and—if their value warrants it—offer a goodwill gesture or easy exchange to retain them.",
+    persona_id: "cust_007",
+  },
 ];
 
 export function getAgent(id: string): AgentTask | undefined {

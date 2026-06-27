@@ -15,6 +15,7 @@ const AGENTS_LIST = [
   { name: "RTO Shield", active: false },
   { name: "WIMO", active: false },
   { name: "Upsell + Review", active: false },
+  { name: "Returns & Refunds", active: false },
 ];
 
 const CRITERIA = [

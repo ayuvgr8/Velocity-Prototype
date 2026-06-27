@@ -82,6 +82,13 @@ export const CANNED_SEGMENTS: { query: string; filter: SegmentFilter }[] = [
       human_readable: "churn risk ≥ 0.5",
     },
   },
+  {
+    query: "customers with an open return or refund",
+    filter: {
+      conditions: [{ field: "refund_status", op: "exists" }],
+      human_readable: "has an open return / pending refund",
+    },
+  },
 ];
 
 function normalize(q: string): string {
@@ -97,13 +104,15 @@ export function parseSegmentMock(query: string): SegmentFilter {
   if (exact) return exact.filter;
 
   const has = (...words: string[]) => words.some((w) => n.includes(w));
+  if (has("refund", "complaint") || has("open return") || has("want to return"))
+    return findFilter("customers with an open return or refund");
   if (has("abandon", "cart")) return findFilter("customers about to abandon a purchase");
   if (has("churn", "quiet", "lapsed", "dormant", "gone")) {
     if (has("high-value", "high value", "valuable", "ltv"))
       return findFilter("high-value customers who've gone quiet");
     return findFilter("who's at risk of churning?");
   }
-  if (has("risky", "rto", "return", "shouldn't ship", "should not ship"))
+  if (has("risky", "rto", "shouldn't ship", "should not ship", "dispatch"))
     return findFilter("risky COD orders I shouldn't ship");
   if (has("anxious", "first-time", "first time", "nervous"))
     return findFilter("anxious first-time buyers");

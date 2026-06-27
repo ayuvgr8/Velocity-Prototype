@@ -41,6 +41,8 @@ const FIELD_LABELS: Record<string, string> = {
   anxiety_signals: "Anxiety signals",
   past_nudge_response: "Past nudge response",
   complementary_products: "Complementary products",
+  return_reason: "Return reason",
+  refund_status: "Refund status",
   orders: "Order history",
   cart: "Live cart",
   messages: "Chat messages",

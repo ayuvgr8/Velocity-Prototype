@@ -16,6 +16,7 @@ const CHIPS: { label: string; query: string }[] = [
   { label: "ready to buy more", query: "happy customers ready to buy more" },
   { label: "prefers COD", query: "everyone who prefers COD" },
   { label: "churn risk", query: "who's at risk of churning?" },
+  { label: "open returns", query: "customers with an open return or refund" },
 ];
 
 export function SegmentationBar({

@@ -15,13 +15,31 @@ export function CustomerRail({
 }) {
   const hasSegment = matchedIds.length > 0;
 
+  const shown = hasSegment ? matchedIds.length : CUSTOMERS.length;
+
+  // when a segment is active, float the matches to the top
+  const ordered = hasSegment
+    ? [...CUSTOMERS].sort(
+        (a, b) =>
+          (matchedIds.includes(b.customer_id) ? 1 : 0) -
+          (matchedIds.includes(a.customer_id) ? 1 : 0)
+      )
+    : CUSTOMERS;
+
   return (
-    <div>
-      <div className="mb-[11px] ml-0.5 mt-0.5 font-mono text-[10.5px] tracking-[0.14em] text-muted-2">
-        CUSTOMERS · 6 PERSONAS
+    <div className="lg:sticky lg:top-[74px]">
+      <div className="mb-[11px] ml-0.5 mt-0.5 flex items-center justify-between">
+        <span className="font-mono text-[10.5px] tracking-[0.14em] text-muted-2">
+          CUSTOMERS · {CUSTOMERS.length} PROFILES
+        </span>
+        {hasSegment && (
+          <span className="font-mono text-[10px] tracking-[0.06em] text-orange-deep">
+            {shown} match{shown === 1 ? "" : "es"}
+          </span>
+        )}
       </div>
-      <div className="flex flex-col gap-[9px]">
-        {CUSTOMERS.map((c) => {
+      <div className="flex max-h-[calc(100vh-150px)] flex-col gap-[9px] overflow-y-auto pr-1.5">
+        {ordered.map((c) => {
           const isSelected = selectedId === c.customer_id;
           const isMatch = matchedIds.includes(c.customer_id);
           const dimmed = hasSegment && !isMatch;

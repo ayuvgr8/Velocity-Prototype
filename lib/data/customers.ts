@@ -1,11 +1,13 @@
 import type { Customer } from "../types";
+import { EXTRA_CUSTOMERS } from "./generate";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// The six personas (PRD §7) — values encoded verbatim.
+// Hand-crafted "hero" personas (PRD §7) — the demo stars, values verbatim.
 // Each persona triggers exactly one agent (`expected_agent`).
+// The wider dataset (more customers per persona) is generated in ./generate.ts.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const CUSTOMERS: Customer[] = [
+const HERO_CUSTOMERS: Customer[] = [
   // ── cust_001 — Priya Sharma → COD→Prepaid Conversion ──────────────────────
   {
     customer_id: "cust_001",
@@ -373,7 +375,66 @@ export const CUSTOMERS: Customer[] = [
     mock_action:
       "So glad you're loving the headphones, Arjun! 🎧 Mind leaving a quick ⭐ review? [link] — and since you're set, the matching carry case is 20% off today: [link]",
   },
+
+  // ── cust_007 — Meera Krishnan → Returns & Refunds ─────────────────────────
+  {
+    customer_id: "cust_007",
+    display_name: "Meera Krishnan",
+    scenario_tag: "Open return · refund pending · high LTV",
+    expected_agent: "returns_refunds",
+    fragments: [
+      {
+        id: "O-5120",
+        source: "storefront",
+        signals: { name: "Meera Krishnan", phone: "+91 98410 55221", email: "meera.k@gmail.com" },
+        note: "prepaid ₹3,200 · returned (size issue)",
+      },
+      {
+        id: "WA-5120",
+        source: "whatsapp",
+        signals: { phone: "+91 98410 55221" },
+        note: "'the dress didn't fit, I want a refund' · 'how long does it take?'",
+      },
+    ],
+    resolution: {
+      anchor: "phone +91 98410 55221",
+      method: ["deterministic: phone", "deterministic: email"],
+      confidence: "high",
+    },
+    orders: [
+      { id: "O-4720", date: "82d ago", value: 2900, payment: "prepaid", status: "delivered", category: "Apparel", items: ["Kurta set"] },
+      { id: "O-4980", date: "41d ago", value: 3400, payment: "prepaid", status: "delivered", category: "Apparel", items: ["Saree"] },
+      { id: "O-5120", date: "4d ago", value: 3200, payment: "prepaid", status: "returned", category: "Apparel", items: ["Anarkali dress (M)"] },
+    ],
+    messages: [
+      { ts: "2025-06-24 09:12", from: "customer", text: "The dress didn't fit, I want a refund" },
+      { ts: "2025-06-25 19:30", from: "customer", text: "how long does the refund take?" },
+    ],
+    traits: {
+      order_count: 9,
+      aov: 3100,
+      ltv: 27900,
+      rfm: { recency_days: 4, frequency: 9, monetary: 27900 },
+      cod_prepaid_ratio: 0.0,
+      rto_count: 1,
+      rto_risk_score: 0.22,
+      churn_score: 0.45,
+      preferred_payment: "prepaid",
+      favorite_category: "Apparel",
+      sentiment: "negative",
+      segment: "Open return — high value",
+      days_since_last_order: 4,
+      is_first_order: false,
+      return_reason: "size issue (M too small)",
+      refund_status: "processing",
+    },
+    mock_action:
+      "Hi Meera, sorry the Anarkali didn't fit! 💛 Your refund of ₹3,200 is processing and lands in 3–4 working days. Want the same in size L instead? I can ship it free today — just reply SWAP.",
+  },
 ];
+
+// Full dataset = hand-crafted heroes + the generated wider pool.
+export const CUSTOMERS: Customer[] = [...HERO_CUSTOMERS, ...EXTRA_CUSTOMERS];
 
 export function getCustomer(id: string): Customer | undefined {
   return CUSTOMERS.find((c) => c.customer_id === id);

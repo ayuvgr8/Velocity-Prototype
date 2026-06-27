@@ -58,6 +58,9 @@ export type Traits = {
   anxiety_signals?: string[];
   past_nudge_response?: string;
   complementary_products?: string[];
+  // Returns & Refunds agent
+  return_reason?: string;
+  refund_status?: "requested" | "approved" | "processing" | "completed";
 };
 
 export type Resolution = {
