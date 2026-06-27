@@ -38,7 +38,7 @@ export function CustomerRail({
           </span>
         )}
       </div>
-      <div className="flex max-h-[calc(100vh-150px)] flex-col gap-[9px] overflow-y-auto pr-1.5">
+      <div className="flex max-h-[46vh] flex-col gap-[9px] overflow-y-auto pr-1.5 lg:max-h-[calc(100vh-150px)]">
         {ordered.map((c) => {
           const isSelected = selectedId === c.customer_id;
           const isMatch = matchedIds.includes(c.customer_id);

@@ -119,10 +119,10 @@ export default function Page() {
       {view === "architecture" ? (
         <ArchitectureView />
       ) : (
-        <main className="min-h-[calc(100vh-58px)] bg-cream px-6 pb-14 pt-5">
+        <main className="min-h-[calc(100vh-58px)] bg-cream px-3 pb-14 pt-4 sm:px-6 sm:pt-5">
           <SegmentationBar mode={mode} onResult={onSegment} trigger={segTrigger} />
 
-          <div className="mt-[18px] grid grid-cols-1 items-start gap-[18px] lg:grid-cols-[296px_minmax(0,1.45fr)_minmax(0,1fr)]">
+          <div className="mt-3 grid grid-cols-1 items-start gap-3 sm:mt-[18px] sm:gap-[18px] lg:grid-cols-[296px_minmax(0,1.45fr)_minmax(0,1fr)]">
             <CustomerRail
               selectedId={selectedId}
               matchedIds={matchedIds}

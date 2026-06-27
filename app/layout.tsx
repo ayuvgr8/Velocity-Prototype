@@ -1,6 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Spline_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#F4EFE6",
+};
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],

@@ -19,21 +19,21 @@ export function Header({
   onStartDemo: () => void;
 }) {
   return (
-    <header className="sticky top-0 z-40 flex items-center justify-between px-6 py-3.5 bg-panel/[0.86] backdrop-blur-[10px] border-b border-border">
+    <header className="sticky top-0 z-40 flex flex-wrap items-center justify-between gap-2 px-3 py-2.5 bg-panel/[0.86] backdrop-blur-[10px] border-b border-border sm:px-6 sm:py-3.5">
       <button
         onClick={() => setView("intro")}
-        className="flex items-center gap-3 cursor-pointer"
+        className="flex items-center gap-2.5 cursor-pointer sm:gap-3"
       >
         <span className="w-[9px] h-[9px] rounded-full bg-purple-2 shadow-[0_0_0_4px_rgba(91,61,245,0.14)]" />
         <span className="font-display font-bold text-[16px] tracking-[-0.01em] text-ink">
           Velocity
         </span>
-        <span className="font-mono text-[10.5px] tracking-[0.14em] text-muted-2 border-l border-border pl-3.5">
+        <span className="hidden font-mono text-[10.5px] tracking-[0.14em] text-muted-2 border-l border-border pl-3.5 sm:inline">
           CONTEXT LAYER
         </span>
       </button>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
         {/* Workspace / Architecture tabs */}
         <div className="flex bg-chip border border-border rounded-[9px] p-[3px] gap-[2px]">
           {(["workspace", "architecture"] as const).map((v) => (

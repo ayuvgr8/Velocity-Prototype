@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="'Space Grotesk','Segoe UI',system-ui,sans-serif">
+  <defs>
+    <filter id="blur8"><feGaussianBlur stdDeviation="8"/></filter>
+    <filter id="pglow" x="-300%" y="-300%" width="700%" height="700%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M1,1 L9,5 L1,9" fill="none" stroke="#C3BBA8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text{font-family:'Space Grotesk','Segoe UI',system-ui,sans-serif;}
+      .eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;fill:#5C574C;}
+      .title{font-size:26px;font-weight:600;fill:#17150E;letter-spacing:-.01em;}
+      .subtitle{font-size:13px;fill:#5C574C;}
+      .stage{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;fill:#a59f90;}
+      .box{fill:#FBF9F4;stroke:#E1DBCF;stroke-width:1;}
+      .bt{font-size:13px;font-weight:600;fill:#17150E;}
+      .bt-lg{font-size:16px;font-weight:600;fill:#17150E;}
+      .bs{font-size:10.5px;fill:#5C574C;}
+      .chip{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;}
+      .tag{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.1em;}
+      .code{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11.5px;fill:#C8BFF2;}
+      .anno{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;fill:#a59f90;}
+      .footer{font-size:11px;fill:#5C574C;}
+      .faint{stroke:#D8D1C2;stroke-width:1.2;fill:none;opacity:.55;stroke-dasharray:3 6;animation:vdash 1.7s linear infinite;}
+      .spine{stroke:#B79BE8;stroke-width:1.8;fill:none;stroke-dasharray:6 6;animation:vdash 1s linear infinite;}
+      .glow{opacity:.14;animation:vbreathe 3.2s ease-in-out infinite;}
+      .glow.v{animation-delay:.7s;}
+      .pkt{filter:url(#pglow);}
+      .hero{animation:vbreathe2 3.4s ease-in-out infinite;}
+      .action{animation:vpop 2.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center;}
+      @keyframes vdash{to{stroke-dashoffset:-24;}}
+      @keyframes vbreathe{0%,100%{opacity:.10;}50%{opacity:.28;}}
+      @keyframes vbreathe2{0%,100%{filter:drop-shadow(0 0 0 rgba(108,92,231,0));}50%{filter:drop-shadow(0 0 10px rgba(108,92,231,.45));}}
+      @keyframes vpop{0%,68%,100%{opacity:.55;transform:scale(.95);}78%,94%{opacity:1;transform:scale(1);}}
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="720" fill="#F4F0E6"/>
+
+  <circle cx="58" cy="42" r="4" fill="#6C5CE7"/>
+  <text class="eyebrow" x="72" y="46">ARCHITECTURE · ONE PICTURE</text>
+  <text class="title" x="52" y="80">Customer Context Layer</text>
+  <text class="subtitle" x="54" y="105">How an AI agent gets exactly what it needs — the moment it acts, across every brand.</text>
+
+  <text class="stage" x="135" y="140" text-anchor="middle">SOURCES · PER BRAND</text>
+  <text class="stage" x="375" y="140" text-anchor="middle">IDENTITY — KEYSTONE</text>
+  <text class="stage" x="625" y="140" text-anchor="middle">UNIFIED DATA</text>
+  <text class="stage" x="880" y="140" text-anchor="middle">CONTEXT API</text>
+  <text class="stage" x="1120" y="140" text-anchor="middle">AGENTS · 1 = 1 CONTRACT</text>
+
+  <line class="faint" x1="220" y1="203" x2="288" y2="386"/>
+  <line class="faint" x1="220" y1="299" x2="288" y2="388"/>
+  <line class="faint" x1="220" y1="395" x2="288" y2="390"/>
+  <line class="faint" x1="220" y1="491" x2="288" y2="392"/>
+  <line class="faint" x1="220" y1="587" x2="288" y2="394"/>
+  <line class="spine" x1="460" y1="390" x2="516" y2="390" marker-end="url(#ah)"/>
+  <line class="spine" x1="730" y1="390" x2="776" y2="390" marker-end="url(#ah)"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="281"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="363"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="445"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="527"/>
+  <line class="faint" x1="980" y1="390" x2="1036" y2="609"/>
+  <line x1="980" y1="390" x2="1036" y2="199" stroke="#C7BEF0" stroke-width="1.6" fill="none"/>
+
+  <rect class="glow g2" x="290" y="235" width="170" height="310" rx="14" fill="#3F9E6E" filter="url(#blur8)"/>
+  <rect class="glow v" x="780" y="215" width="200" height="350" rx="14" fill="#6C5CE7" filter="url(#blur8)"/>
+  <rect class="glow v" x="1040" y="164" width="160" height="70" rx="12" fill="#6C5CE7" filter="url(#blur8)"/>
+
+  <g>
+    <rect class="box" x="50" y="164" width="170" height="78" rx="10"/>
+    <circle cx="78" cy="203" r="5.5" fill="#9388E0"/>
+    <text class="bt" x="96" y="199">Storefront</text><text class="bs" x="96" y="218">orders · catalog</text>
+  </g>
+  <g>
+    <rect class="box" x="50" y="260" width="170" height="78" rx="10"/>
+    <circle cx="78" cy="299" r="5.5" fill="#9388E0"/>
+    <text class="bt" x="96" y="295">WhatsApp</text><text class="bs" x="96" y="314">chats · intents</text>
+  </g>
+  <g>
+    <rect class="box" x="50" y="356" width="170" height="78" rx="10"/>
+    <circle cx="78" cy="395" r="5.5" fill="#9388E0"/>
+    <text class="bt" x="96" y="391">Payments</text><text class="bs" x="96" y="410">COD · prepaid</text>
+  </g>
+  <g>
+    <rect class="box" x="50" y="452" width="170" height="78" rx="10"/>
+    <circle cx="78" cy="491" r="5.5" fill="#9388E0"/>
+    <text class="bt" x="96" y="487">Logistics</text><text class="bs" x="96" y="506">tracking · RTO</text>
+  </g>
+  <g>
+    <rect class="box" x="50" y="548" width="170" height="78" rx="10"/>
+    <circle cx="78" cy="587" r="5.5" fill="#9388E0"/>
+    <text class="bt" x="96" y="583">Web / App</text><text class="bs" x="96" y="602">carts · browsing</text>
+  </g>
+  <text class="anno" x="135" y="660" text-anchor="middle">scattered · keyed differently</text>
+
+  <rect class="box" x="290" y="235" width="170" height="310" rx="14" stroke="#3F9E6E" stroke-width="2"/>
+  <text class="tag" x="375" y="266" text-anchor="middle" fill="#3F9E6E">✦ KEYSTONE</text>
+  <text class="bt-lg" x="375" y="300" text-anchor="middle">Identity</text>
+  <text class="bt-lg" x="375" y="322" text-anchor="middle">Resolution</text>
+  <rect x="312" y="344" width="126" height="22" rx="11" fill="#EEF6F0" stroke="#CDE6D7"/>
+  <text class="chip" x="375" y="359" text-anchor="middle" fill="#2F8157">phone = anchor</text>
+  <rect x="302" y="374" width="146" height="22" rx="11" fill="#EEF6F0" stroke="#CDE6D7"/>
+  <text class="chip" x="375" y="389" text-anchor="middle" fill="#2F8157">works across brands</text>
+  <line x1="332" y1="462" x2="402" y2="488" stroke="#3F9E6E" stroke-width="1.2"/>
+  <line x1="332" y1="488" x2="402" y2="488" stroke="#3F9E6E" stroke-width="1.2"/>
+  <line x1="332" y1="514" x2="402" y2="488" stroke="#3F9E6E" stroke-width="1.2"/>
+  <circle cx="332" cy="462" r="5" fill="#FFFFFF" stroke="#3F9E6E" stroke-width="1.4"/>
+  <circle cx="332" cy="488" r="5" fill="#FFFFFF" stroke="#3F9E6E" stroke-width="1.4"/>
+  <circle cx="332" cy="514" r="5" fill="#FFFFFF" stroke="#3F9E6E" stroke-width="1.4"/>
+  <circle cx="404" cy="488" r="8" fill="#3F9E6E"/>
+  <text class="bs" x="375" y="535" text-anchor="middle">many IDs → one customer</text>
+
+  <rect class="box" x="520" y="235" width="210" height="310" rx="14"/>
+  <text class="bt" x="625" y="272" text-anchor="middle">Unified Profile</text>
+  <text class="bt" x="625" y="291" text-anchor="middle">+ Traits</text>
+  <rect x="536" y="306" width="178" height="30" rx="6" fill="#FAF8F2" stroke="#E7E0D0"/>
+  <text class="bs" x="625" y="325" text-anchor="middle">Event store · append-only</text>
+  <rect x="536" y="343" width="178" height="30" rx="6" fill="#FAF8F2" stroke="#E7E0D0"/>
+  <text class="bs" x="625" y="362" text-anchor="middle">Trait store · current state</text>
+  <text class="chip" x="625" y="397" text-anchor="middle" fill="#928C7C">AI-derived traits</text>
+  <rect x="536" y="408" width="46" height="22" rx="11" fill="#F1EEF9" stroke="#DBD4F0"/><text class="chip" x="559" y="423" text-anchor="middle" fill="#5B4FB0">RFM</text>
+  <rect x="588" y="408" width="72" height="22" rx="11" fill="#F1EEF9" stroke="#DBD4F0"/><text class="chip" x="624" y="423" text-anchor="middle" fill="#5B4FB0">RTO risk</text>
+  <rect x="666" y="408" width="48" height="22" rx="11" fill="#F1EEF9" stroke="#DBD4F0"/><text class="chip" x="690" y="423" text-anchor="middle" fill="#5B4FB0">Churn</text>
+  <rect x="536" y="436" width="44" height="22" rx="11" fill="#F1EEF9" stroke="#DBD4F0"/><text class="chip" x="558" y="451" text-anchor="middle" fill="#5B4FB0">LTV</text>
+  <rect x="586" y="436" width="72" height="22" rx="11" fill="#F1EEF9" stroke="#DBD4F0"/><text class="chip" x="622" y="451" text-anchor="middle" fill="#5B4FB0">Segment</text>
+  <rect x="664" y="436" width="50" height="22" rx="11" fill="#F1EEF9" stroke="#DBD4F0"/><text class="chip" x="689" y="451" text-anchor="middle" fill="#5B4FB0">AOV+</text>
+  <text class="bs" x="625" y="490" text-anchor="middle">one record per human</text>
+
+  <g class="hero">
+    <rect x="780" y="215" width="200" height="350" rx="14" fill="#1C1F26" stroke="#1C1F26"/>
+    <rect x="892" y="227" width="74" height="20" rx="10" fill="#2C2740" stroke="#4A3F7A"/>
+    <text class="tag" x="929" y="241" text-anchor="middle" fill="#B5ABF5">THE HERO</text>
+    <text class="bt-lg" x="880" y="285" text-anchor="middle" style="fill:#F2EEE4">Agent Context API</text>
+    <text class="code" x="880" y="332" text-anchor="middle">getContext(customer, task)</text>
+    <text class="bs" x="880" y="356" text-anchor="middle" style="fill:#B7B1A3">returns only what the agent needs</text>
+    <rect x="800" y="384" width="160" height="96" rx="10" fill="#262B35" stroke="#3C424F"/>
+    <text class="chip" x="880" y="404" text-anchor="middle" fill="#B5ABF5">task-scoped bundle</text>
+    <rect x="812" y="414" width="74" height="22" rx="11" fill="#2F3542" stroke="#46506A"/><text class="chip" x="849" y="429" text-anchor="middle" fill="#C8BFF2">RTO risk</text>
+    <rect x="890" y="414" width="58" height="22" rx="11" fill="#2F3542" stroke="#46506A"/><text class="chip" x="919" y="429" text-anchor="middle" fill="#C8BFF2">COD %</text>
+    <rect x="812" y="442" width="46" height="22" rx="11" fill="#2F3542" stroke="#46506A"/><text class="chip" x="835" y="457" text-anchor="middle" fill="#C8BFF2">AOV</text>
+    <rect x="862" y="442" width="86" height="22" rx="11" fill="#2F3542" stroke="#46506A"/><text class="chip" x="905" y="457" text-anchor="middle" fill="#C8BFF2">pay history</text>
+    <text class="bs" x="880" y="503" text-anchor="middle" style="fill:#B7B1A3">4 fields — not the whole profile</text>
+    <text class="chip" x="880" y="530" text-anchor="middle" fill="#B5ABF5">1 agent = 1 contract</text>
+  </g>
+  <text class="anno" x="1008" y="300" text-anchor="middle" style="fill:#8E84C8">context bundle ↘</text>
+
+  <g>
+    <rect class="box" x="1040" y="164" width="160" height="70" rx="12" stroke="#6C5CE7" stroke-width="2"/>
+    <text class="bt" x="1120" y="194" text-anchor="middle">COD → Prepaid</text>
+    <text class="bs" x="1120" y="213" text-anchor="middle" style="fill:#6C5CE7">← receiving context</text>
+  </g>
+  <g><rect class="box" x="1040" y="246" width="160" height="70" rx="12"/><text class="bt" x="1120" y="286" text-anchor="middle">Winback</text></g>
+  <g><rect class="box" x="1040" y="328" width="160" height="70" rx="12"/><text class="bt" x="1120" y="368" text-anchor="middle">Cart Recovery</text></g>
+  <g><rect class="box" x="1040" y="410" width="160" height="70" rx="12"/><text class="bt" x="1120" y="450" text-anchor="middle">RTO Shield</text></g>
+  <g><rect class="box" x="1040" y="492" width="160" height="70" rx="12"/><text class="bt" x="1120" y="532" text-anchor="middle">WIMO</text></g>
+  <g><rect class="box" x="1040" y="574" width="160" height="70" rx="12"/><text class="bt" x="1120" y="614" text-anchor="middle">Upsell + Review</text></g>
+
+  <!-- animated data packets flowing through the pipeline -->
+  <circle class="pkt" r="3.6" fill="#6C5CE7"><animateMotion dur="3s" begin="0s" repeatCount="indefinite" path="M232,390 L980,390"/></circle>
+  <circle class="pkt" r="3.6" fill="#6C5CE7"><animateMotion dur="3s" begin="1s" repeatCount="indefinite" path="M232,390 L980,390"/></circle>
+  <circle class="pkt" r="4" fill="#6C5CE7"><animateMotion dur="3s" begin="2s" repeatCount="indefinite" path="M232,390 L980,390"/></circle>
+  <!-- context bundle out to the active agent -->
+  <circle class="pkt" r="4.2" fill="#6C5CE7"><animateMotion dur="1.5s" begin="0.4s" repeatCount="indefinite" path="M980,390 L1036,199"/></circle>
+  <circle class="pkt" r="3.4" fill="#6C5CE7"><animateMotion dur="1.7s" begin="1.3s" repeatCount="indefinite" path="M980,390 L1036,281"/></circle>
+
+  <g class="action">
+    <path d="M1206,190 L1218,190 L1210,202 Z" fill="#FFFFFF"/>
+    <rect x="1182" y="150" width="92" height="42" rx="10" fill="#FFFFFF" stroke="#1FA855" stroke-width="1.5"/>
+    <path d="M1196,171 l4,4 l8,-9" fill="none" stroke="#1FA855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1203,171 l4,4 l8,-9" fill="none" stroke="#1FA855" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="chip" x="1245" y="175" text-anchor="middle" fill="#1B8E48">nudge sent</text>
+  </g>
+  <text class="anno" x="1228" y="226" text-anchor="middle" style="fill:#1FA855">→ agent acts</text>
+
+  <line x1="52" y1="676" x2="1228" y2="676" stroke="#E4DDCD" stroke-width="1"/>
+  <text class="footer" x="640" y="700" text-anchor="middle">Closed loop — every action's outcome writes back as a new event; traits sharpen; every new brand improves the priors for all. The data compounds into a moat.</text>
+</svg>
