@@ -50,7 +50,7 @@ The CDP is a *component inside* our layer (the unified store). The product is th
 
 I didn't design the data model in a vacuum and hope agents could use it. **I let the agents' needs be the forcing function.**
 
-1. List the agents we want (today's 6 + the roadmap).
+1. List the agents we want (today's 7 + the roadmap).
 2. For each, write down the literal fields it needs to make its decision.
 3. The **union of those needs** defines the trait store. The **per-agent subset** defines its contract.
 
@@ -69,7 +69,7 @@ This is why the layer serves *products we haven't built yet*: a new agent is a n
 - **② Identity resolution (the keystone).** Fragments collapse into one human, with a **confidence on every link** — deterministic (phone/email) → probabilistic (name+address+device, AI-scored) → behavioral (session→buyer) → **cross-brand graph join** (the moat). Nothing downstream works until this is trustworthy.
 - **③ Unified store, split on purpose.** *3a Event store* = immutable, append-only facts (orders, chats, shipments) — the replayable source of truth. *3b Trait store* = derived signals (RFM, LTV, RTO-risk, churn, sentiment) **recomputed from events, never hand-set.** Splitting them is what makes a wrong trait fixable (replay & recompute) and what keeps contracts stable (agents read traits, so recomputation never breaks them).
 - **④ Context API — `getContext(customer, task)`.** Takes an agent's contract, resolves the fields, ranks by relevance + recency, and returns a **tight task-scoped bundle (~70–90% smaller than a full dump).** *This is the layer the prototype implements.*
-- **Agents = one Context Contract each.** Today's 6, plus *product #N (not built yet)* — which ships by declaring a new contract over existing traits. **No re-architecture; platform cost ≈ O(1) in number of products.**
+- **Agents = one Context Contract each.** Today's 7 (incl. **Returns & Refunds**, added as just a contract), and the next ships the same way — declare a new contract over existing traits. **No re-architecture; platform cost ≈ O(1) in number of products.**
 - **Closed loop (bottom).** Every action + outcome is written back as a new event → traits sharpen → the next decision is better. The layer **self-tunes**, and every new brand improves the network priors for every other brand.
 
 <details><summary>Text-only fallback (same diagram)</summary>
@@ -152,9 +152,9 @@ The prototype demonstrates the last two live. The deck claims the first three �
 
 ---
 
-## Slide 9 · #3 Features — today's 6, then what brands *don't* have
+## Slide 9 · #3 Features — today's 7, then what brands *don't* have
 
-**Built on the layer today (in the prototype):** COD→Prepaid · RTO Shield · Cart Recovery · Winback · Proactive WIMO · Upsell+Review. Each is just a contract + decision logic + message.
+**Built on the layer today (in the prototype):** COD→Prepaid · RTO Shield · Cart Recovery · Winback · Proactive WIMO · Upsell+Review · Returns & Refunds. Each is just a contract + decision logic + message — the 7th (Returns & Refunds) was added as a pure contract, no re-architecture.
 
 **New capabilities the layer unlocks that brands can't do today:**
 
@@ -227,7 +227,7 @@ Prioritized by **value × data-readiness × reversibility-of-risk.** Build where
 | **Fully autonomous send** (no human in loop) | Earn trust first with suggestion-mode + sampled review. Autonomy is a dial, not a launch toggle. |
 | **Broad marketing broadcasts** | High blast radius, low per-message intelligence — it's the *least* differentiated use of the layer. Do the 1:1 agents first; broadcasts are easy to bolt on once segments are trusted. |
 | **Returns/refunds adjudication** | Touches money + policy + emotion. Needs governance and brand-specific rules before AI decides. |
-| **Self-serve "build your own agent"** for brands | Powerful, but only after the contract format and trait catalog have stabilized on our own 6 agents. |
+| **Self-serve "build your own agent"** for brands | Powerful, but only after the contract format and trait catalog have stabilized on our own agents. |
 | **Deep ML retraining infra** | Pre-computed/heuristic traits are good enough to ship Phases 1–2. Build the ML platform when a trait's accuracy is the actual bottleneck — not before. |
 
 **The senior signal is the restraint:** the prototype itself has no DB, no auth, no real integrations — on purpose. Knowing what *not* to build in a 1–2 day window is the same muscle as knowing what to defer on the roadmap.

@@ -134,9 +134,9 @@
     <text x="936" y="520" font-weight="700">Upsell + Review</text>
     <text x="936" y="539" font-size="12" fill="#64748b">last_order · sentiment · complements</text>
 
-    <g filter="url(#shadow)"><rect x="916" y="560" width="300" height="58" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-dasharray="5 4"/></g>
-    <text x="936" y="588" font-weight="700" fill="#7c3aed">Product #N (not built yet)</text>
-    <text x="936" y="607" font-size="12" fill="#64748b">just declare a new contract →</text>
+    <g filter="url(#shadow)"><rect x="916" y="560" width="300" height="58" rx="12" fill="#ffffff" stroke="#bbf7d0"/></g>
+    <text x="936" y="586" font-weight="700">Returns &amp; Refunds <tspan font-size="11" fill="#16a34a" font-weight="700">· NEW — just a contract</tspan></text>
+    <text x="936" y="605" font-size="12" fill="#64748b">return_reason · refund_status · sentiment</text>
   </g>
 
   <!-- extensibility callout -->
